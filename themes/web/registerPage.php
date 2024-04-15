@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-    <img src="../img/wardiere inc..png">
+    <img src="../../img/logo.png">
     <h1>Cadastrar Usuário</h1>
     <form id="formInsert">
         <label for="name">Nome:</label>

@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="../img/wardiere inc..png">
+        <img src="../../img/logo.png">
         <h1>Faça seu login</h1>
         <form class="login-information">
         <input type="email" placeholder="E-mail">
