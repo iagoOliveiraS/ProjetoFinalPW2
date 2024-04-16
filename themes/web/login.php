@@ -19,7 +19,6 @@
         <input type="password" placeholder="Password">
         <button type="submit">Entrar</button>
         </form>
-        <h4>Não tem conta? <a href="registerPage.php">Cadastrar</a></h4>
     </div>
 </body>
 </html>

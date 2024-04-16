@@ -17,7 +17,7 @@
     <div class="dropdown">
         <button class="dropbtn">Mais</button>
         <div class="dropdown-content">
-            <a href="#">perfil</a>
+            <a href="#">Inicio</a>
             <a href="#">ver meu treino</a>
             <a href="#">Personais</a>
             <a href="#">Exercicios</a>
@@ -25,16 +25,7 @@
     </div>
 
     <div class="perfil-user">
-        <div class="perfil-data">
-        <img src="../../img/perfil.jpg" alt="" srcset="">
-        <h1>Nome do Usuario</h1>
-        </div>
-        <div class="client-data">
-            <h3>Nome completo do Usuario</h3>
-            Números: <input type="text">
-            <input type="text">
-            <input type="text">
-        </div>
+        
     </div>
 
     <!-- Clicar em ver meu treino -->
