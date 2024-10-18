@@ -19,29 +19,14 @@ public function __construct()
         echo $this->view->render("home",[]);
     }
 
-    public function about ()
-    {
-        echo $this->view->render("about",[]);
-    }
-
-    public function contact ()
-    {
-        echo $this->view->render("contact",[]);
-    }
-
-    public function location ()
-    {
-        echo $this->view->render("location",[]);
-    }
-
-    public function cart () : void
-    {
-        echo $this->view->render("cart",[]);
-    }
-
     public function login() : void
     {
         echo $this->view->render("login",[]);
+    }
+
+    public function register() : void
+    {
+        echo $this->view->render("registerPage",[]);
     }
 
     public function error(array $data)

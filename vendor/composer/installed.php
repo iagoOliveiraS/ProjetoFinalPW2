@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'fabio3268/escola-tarde',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'name' => 'fabio3268/mvc-project-tarde',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'e48670f94f79083ef8953db57b37f327179909ce',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -19,10 +19,10 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'fabio3268/escola-tarde' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+        'fabio3268/mvc-project-tarde' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'e48670f94f79083ef8953db57b37f327179909ce',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
