@@ -4,14 +4,20 @@ echo $this->layout("_theme");
 
 ?>
 
+<script type="module" src="<?= url("themes/adm/assets/js/workout.js"); ?>" async> </script>
+
 <div class="main">
      <!-- Seção de Treinos -->
-     <section id="classes" class="content-section">
-            <h3>Treinos</h3>
-            <ul class="class-list">
-                <li>Treino 1: Peito e Tríceps</li>
-                <li>Treino 2: Costas e Bíceps</li>
-                <li>Treino 3: Pernas e Ombros</li>
-            </ul>
-        </section>
+      <!-- Seção de Treinos -->
+    <section id="search">
+        <h3>Pesquisar Treino</h3>
+        <form id="searchWorkout">
+            <input type="text" id="searchInput" placeholder="Nome do usuário" oninput="searchUsers()" autocomplete="off">
+            <button type="submit">Pesquisar</button>
+        </form>
+
+        <ul id="suggestionsList" style="display: none; list-style-type: none; padding-left: 0; margin-top: 10px;">
+            <!-- Sugestões de usuários aparecerão aqui -->
+        </ul>
+    </section>
 </div>

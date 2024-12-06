@@ -27,7 +27,7 @@
     <div class="dropdown">
         <button class="dropbtn">Mais</button>
         <div class="dropdown-content">
-            <a href="#">perfil</a>
+        <a href="<?= url("app/perfil");?>" class="btnClientes">perfil</a>
             <a href="#">ver meu treino</a>
             <a href="#">Personais</a>
             <a href="#">Exercicios</a>
@@ -39,5 +39,3 @@
            echo $this->section("content");
         ?>
     </main>
-
-</body>

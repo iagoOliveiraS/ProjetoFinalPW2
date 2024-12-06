@@ -41,6 +41,13 @@ $route->get("/cadastro", "Admin:forms");
 $route->get("/TV","Admin:screenTV");
 $route->group(null);
 
+// Rotas amigáveis da área restrita admin
+$route->group("/app");
+
+$route->get("/", "App:home");
+$route->get("/perfil", "App:profile");
+$route->group(null);
+
 $route->dispatch();
 
 if ($route->error()) {

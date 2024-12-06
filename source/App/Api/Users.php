@@ -4,13 +4,76 @@ namespace Source\App\Api;
 
 use Source\Core\TokenJWT;
 use Source\Models\User;
-
+use Source\Support\ImageUploader;
 class Users extends Api
 {
     public function __construct()
     {
         parent::__construct();
     }
+    public function getUser()
+{
+    $this->auth();
+
+    $users = new User();
+    $user = $users->selectById($this->userAuth->id);
+
+    // Verifica se o usuário foi encontrado
+    if (!$user) {
+        $this->back([
+            "type" => "error",
+            "message" => "Usuário não encontrado"
+        ]);
+        return;
+    }
+
+    $this->back([
+        "type" => "success",
+        "message" => "Usuário autenticado",
+        "user" => [
+            "id" => $this->userAuth->id,
+            "name" => $user->name,
+            "email" => $user->email,
+            "photo" => $user->photo
+        ]
+    ]);
+}
+
+public function listUsersByName(array $data)
+{
+    // Verifica se o nome foi fornecido
+    if (empty($data['name'])) {
+        $this->back([
+            "type" => "error",
+            "message" => "O nome é obrigatório para realizar a busca."
+        ]);
+        return;
+    }
+
+    $name = $data['name'];
+
+    // Cria uma instância da classe User e faz a busca pelo nome
+    $users = new User();
+    $result = $users->selectByName($name);
+
+    // Verifica se encontrou usuários
+    if (empty($result)) {
+        $this->back([
+            "type" => "error",
+            "message" => "Nenhum usuário encontrado com esse nome."
+        ]);
+        return;
+    }
+
+    // Retorna os usuários encontrados
+    $this->back([
+        "type" => "success",
+        "message" => "Usuários encontrados.",
+        "users" => $result
+    ]);
+}
+
+
 
     public function listUsers ()
     {
@@ -165,5 +228,49 @@ public function loginUser(array $data)
             "type" => "success",
             "message" => $user->getMessage()
         ]);
+    }
+
+    public function updatePhoto(array $data)
+    {
+
+        $imageUploader = new ImageUploader();
+        $photo = (!empty($_FILES["photo"]["name"]) ? $_FILES["photo"] : null);
+
+        $this->auth();
+
+        if (!$photo) {
+            $this->back([
+                "type" => "error",
+                "message" => "Por favor, envie uma foto do tipo JPG ou JPEG"
+            ]);
+            return;
+        }
+
+        $upload = $imageUploader->upload($photo);
+
+        $user = new User(
+            id: $this->userAuth->id,
+            photo: $upload
+        );
+
+        if (!$user->updatePhoto()) {
+            $this->back([
+                "type" => "error",
+                "message" => $user->getMessage()
+            ]);
+            return;
+        }
+
+        $this->back([
+            "type" => "success",
+            "message" => $user->getMessage(),
+            "user" => [
+                "id" => $user->getId(),
+                "name" => $user->getName(),
+                "email" => $user->getEmail(),
+                "photo" => $user->getPhoto()
+            ]
+        ]);
+
     }
 }

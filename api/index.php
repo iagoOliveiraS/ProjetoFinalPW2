@@ -25,9 +25,13 @@ $route->namespace("Source\App\Api");
 $route->group("/users");
 
 $route->get("/", "Users:listUsers");
+$route->get("/user/{userName}", "Users:listUsersByName");
 $route->post("/","Users:createUser");
 $route->post("/login","Users:loginUser");
 $route->post("/update","Users:updateUser");
+$route->post("/photo","Users:updatePhoto");
+$route->get("/me","Users:getUser");
+$route->get("/photo","Users:getPhoto");
 $route->post("/set-password","Users:setPassword");
 
 $route->group("null");
@@ -61,10 +65,26 @@ $route->get("/","Personais:listAll");
 $route->get("/personal/{personalId}","Personais:getById");
 $route->post("/insert","Personais:insert");
 $route->delete("/personal/{personalId}","Personais:deletePersonal");
-$route->post("/update/{personalId}","Personais:update");
+$route->post("/update/{IdUpdate}","Personais:update");
 $route->get("/list-by-group/group/{muscleGroup}","Exercises:listByGroup");
 
 $route->group("null");
+
+/* Treinos */
+
+$route->group("/workouts");
+
+$route->get("/", "Workouts:listAll"); // Lista todos os treinos
+$route->get("/user/{userId}", "Workouts:getByUserId"); // Lista treinos de um usuário específico
+// $route->get("/workout/{workoutId}", "Workouts:getById"); // Detalhes de um treino específico
+// $route->delete("/workout/{workoutId}", "Workouts:deleteWorkout"); // Deleta um treino específico
+// $route->post("/insert", "Workouts:createWorkout"); // Cria um novo treino
+// $route->post("/update/{workoutId}", "Workouts:updateWorkout"); // Atualiza um treino específico
+
+$route->group("null");
+
+
+
 
 $route->dispatch();
 

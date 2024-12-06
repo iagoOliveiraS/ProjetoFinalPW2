@@ -3,48 +3,92 @@ import {
      getBackendUrlApi, getBackendUrl, showToast //showDataSelect
 } from "./../../../_shared/functions.js";
 
+import  {
+    HttpExercise
+} from "../../../../assets/classes/HttpExercise.js";
+
 //modalService.style.display = "flex";
-let exercises = fetch(`http://localhost/ProjetoPW2/api/exercises`).then((response) => {
-    response.json()
-        .then((exercises) => {
-            //console.log(personais);
-            exercises.forEach((exercise) => {
-                //console.log(p.id, p.name);
-                const ul = document.querySelector(".exercise-list")
-                const newLi = document.createElement("li");
-                newLi.innerHTML = ` 
-                Exercicio: ${exercise.name} 
-                (Grupo Muscular: ${exercise.muscle_group}) 
-                - <button class="btnDelete" data-id="${exercise.id}">Delete</button>
-                -<button class="btnUpdate" data-id="${exercise.id}">Alterar</button>`;
-                ul.appendChild(newLi);
+const api = new HttpExercise();
+
+
+function renderExercises(listExercises){
+    const ul = document.querySelector(".exercise-list")
+    ul.innerHTML = ``;
+    listExercises.forEach((exercise) => {
+        //console.log(p.id, p.name);
+        const newLi = document.createElement("li");
+        newLi.innerHTML = `
+        Exercicio: ${exercise.name}
+        (Grupo Muscular: ${exercise.muscle_group})
+        - <button class="btnDelete" data-id="${exercise.id}">Delete</button>
+        - <button class="btnUpdate" data-id="${exercise.id}">Alterar</button>`;
+        ul.appendChild(newLi);
+    });
+    const btnDelete = document.querySelectorAll('.btnDelete');
+    btnDelete.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            const IdDelete = e.target.getAttribute('data-id');
+            Delete(IdDelete, e); // Passa o Id e o evento
+        });
+    });
+    const btnUpdate = document.querySelectorAll('.btnUpdate');
+    btnUpdate.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            const IdUpdate = e.target.getAttribute('data-id');
+            Update(IdUpdate, e); // Passa o Id e o evento
+        })});
+}
+
+try {
+    const listExercises = await api.getAllExercises();
+    renderExercises(listExercises);
+} catch (error) {
+    console.error('Erro na requisição:', error);
+}
+
+// let exercises = fetch(`http://localhost/ProjetoPW2/api/exercises`).then((response) => {
+//     response.json()
+//         .then((exercises) => {
+//             //console.log(personais);
+//             exercises.forEach((exercise) => {
+//                 //console.log(p.id, p.name);
+//                 const ul = document.querySelector(".exercise-list")
+//                 const newLi = document.createElement("li");
+//                 newLi.innerHTML = ` 
+//                 Exercicio: ${exercise.name} 
+//                 (Grupo Muscular: ${exercise.muscle_group}) 
+//                 - <button class="btnDelete" data-id="${exercise.id}">Delete</button>
+//                 -<button class="btnUpdate" data-id="${exercise.id}">Alterar</button>`;
+//                 ul.appendChild(newLi);
                 
             
-            });
-            const btnDelete = document.querySelectorAll('.btnDelete');
-            btnDelete.forEach((button) => {
-                button.addEventListener('click', (e) => {
-                    const IdDelete = e.target.getAttribute('data-id');
-                    Delete(IdDelete, e); // Passa o Id e o evento
-                });
-            });
-            const btnUpdate = document.querySelectorAll('.btnUpdate');
-            btnUpdate.forEach((button) => {
-               button.addEventListener('click', (e) => {
-                const IdUpdate = e.target.getAttribute('data-id');
-                UpdateExercise(IdUpdate, e); // Passa o Id e o evento
-                });
-               })
+//             });
+//             const btnDelete = document.querySelectorAll('.btnDelete');
+//             btnDelete.forEach((button) => {
+//                 button.addEventListener('click', (e) => {
+//                     const IdDelete = e.target.getAttribute('data-id');
+//                     Delete(IdDelete, e); // Passa o Id e o evento
+//                 });
+//             });
+//             const btnUpdate = document.querySelectorAll('.btnUpdate');
+//             btnUpdate.forEach((button) => {
+//                button.addEventListener('click', (e) => {
+//                 const IdUpdate = e.target.getAttribute('data-id');
+//                 UpdateExercise(IdUpdate, e); // Passa o Id e o evento
+//                 });
+//                })
         
-    });
+//     });
 
      function Delete(IdDelete, e) {
-        fetch(`http://localhost/ProjetoPW2/api/exercises/exercise/${IdDelete}`, {
-            method: "DELETE",
-        })
-        .then((response) => {
+        try {
+            api.deleteExercise(IdDelete);
             e.target.parentElement.remove();
-        })
+            
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+        }
+        
     }
 
     function UpdateExercise(IdUpdate, e) {
@@ -111,5 +155,3 @@ let exercises = fetch(`http://localhost/ProjetoPW2/api/exercises`).then((respons
             })
         };
     }
-    
-     });
